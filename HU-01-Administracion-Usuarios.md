@@ -4,6 +4,7 @@
 **Perfil:** Analista Funcional / QA Analyst  
 **Contexto del Sistema:** Módulo de Administración Centralizada para un Sistema ERP de Operaciones y Analítica Corporativa.
  Es el panel de control de seguridad del sistema, donde defines qué empleados pueden entrar a usar la plataforma.
+
 ---
 
 ##  Descripción General
