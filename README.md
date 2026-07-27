@@ -1,5 +1,5 @@
 
-##  Sobre este Portafolio de Requisitos y QA
+##  Sobre este Portafolio de  QA
 
 Este espacio reúne una serie de artefactos de ingeniería de software (Historias de Usuario, Casos de Prueba y Matriz de Trasabilidad y) diseñados por mí. 
 
