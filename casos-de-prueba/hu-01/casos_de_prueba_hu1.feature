@@ -1,41 +1,35 @@
-# Suite de Casos de Prueba Automatizables (Formato Gherkin - BDD)
+Feature: User Access and Role Permissions Management
 
-**Metodología de QA:** Behavior-Driven Development (BDD)  
-**Proyecto:** Sistema de Gestión Corporativa Integrada (ERP/CRM)  
-**Total de Escenarios:** 15 Casos de Prueba funcionales, lógicos, de interfaz y de datos.
+  Background:
+    Given the system is online and the access control service is active
 
----
+  Scenario: Block unauthorized access to administrative features
+    Given a user is authenticated with the "Visualizer" role
+    When the user attempts to access the administrative dashboard
+    Then the system should deny access
+    And the user should be redirected to the main home page.
 
-##  Módulo 1: Gestión de Accesos, Roles y Permisos (HU-01)
+  Scenario: Successful rendering of permissions matrix for administrators
+    Given a user is authenticated with the "Admin_IT" role
+    When the user navigates to the permissions management section
+    Then the system should display the complete feature-role mapping matrix
+    And all permission checkboxes must be interactive.
 
-### Scenario 1: Bloqueo de acceso forzado a URL administrativa por rol no autorizado
-*   **Given** que el usuario ha iniciado sesión con el rol de "Visualizador"
-*   **When** intenta navegar directamente a la ruta protegida `/admin/security/roles`
-*   **Then** el sistema interrumpe la carga de la página
-*   **And** muestra un mensaje de error de permisos en pantalla
-*   **And** redirige automáticamente al usuario al Dashboard de inicio.
+  Scenario: Prevent data loss from unsaved changes during navigation
+    Given the administrator has modified a role permission
+    When the administrator attempts to navigate away without saving
+    Then the system should interrupt the navigation
+    And display a warning message regarding unsaved changes.
 
-### Scenario 2: Visualización condicional de la matriz de checkboxes para el administrador
-*   **Given** que el usuario se encuentra autenticado con el rol de "Admin_IT"
-*   **When** accede al módulo de "Administración" y selecciona la pestaña "Permisos"
-*   **Then** el sistema renderiza la matriz completa de funcionalidades versus roles
-*   **And** todos los checkboxes se muestran habilitados para su modificación.
+  Scenario: Protect root administrator account from external modification
+    Given a support technician is logged into the system
+    When the technician attempts to edit or delete the "Root Administrator" account
+    Then the system should disable all modification actions for that specific profile
+    And reject any alteration request in the backend.
 
-### Scenario 3: Alerta de prevención de pérdida de datos por navegación sin guardar
-*   **Given** que el administrador se encuentra en la matriz de permisos y modifica el estado de un checkbox
-*   **When** intenta hacer clic en el módulo de "Reportes" del menú lateral sin presionar "Guardar"
-*   **Then** el sistema detiene la navegación
-*   **And** despliega un modal flotante con la advertencia: "Tiene cambios sin guardar. ¿Desea salir de todas formas?".
-
-### Scenario 4: Restricción de eliminación del usuario Administrador Principal (Root)
-*   **Given** que el soporte técnico ha iniciado sesión con una cuenta secundaria de IT
-*   **When** accede a la lista de usuarios y localiza la fila del "Administrador Principal"
-*   **Then** los botones de acción "Editar" y "Eliminar" de esa fila se muestran deshabilitados en gris
-*   **And** el sistema bloquea cualquier petición de alteración hacia esa cuenta en el backend.
-
-### Scenario 5: Desbloqueo manual inmediato de cuenta de empleado suspendida
-*   **Given** que un empleado tiene el estado "Bloqueado = True" en la base de datos
-*   **And** el administrador de IT accede al perfil de dicho empleado en el panel de usuarios
-*   **When** desmarca la opción "Bloqueado" y presiona el botón "Guardar"
-*   **Then** el sistema actualiza el registro en la base de datos a "Bloqueado = False"
-*   **And** el empleado recupera el acceso para iniciar sesión con sus credenciales de forma instantánea.
+  Scenario: Immediate manual unlock of a suspended user account
+    Given an employee account is suspended due to consecutive failed login attempts
+    And the administrator accesses the user management directory
+    When the administrator unlocks the employee profile and saves the configuration
+    Then the system should update the account status to active
+    And the employee should be able to authenticate immediately.
