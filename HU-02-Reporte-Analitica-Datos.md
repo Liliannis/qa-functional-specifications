@@ -3,7 +3,7 @@
 **Tipo:** Historia de Usuario (Simulación de Caso Real - Anonimizado)  
 **Perfil:** Analista Funcional / QA Analyst  
 **Contexto del Sistema:** Módulo de Business Intelligence (BI) y Analítica para una Plataforma Corporativa de Gestión Hotelera Internacional.
-
+Es el módulo de inteligencia de negocio (BI) donde los directivos entran a ver los reportes y tableros con datos.
 ---
 
 ##  Descripción General
