@@ -1,7 +1,7 @@
 
 ##  Sobre este Portafolio de Requisitos y QA
 
-Este espacio reúne una serie de artefactos de ingeniería de software (Historias de Usuario, Matrices de Permisos y Casos de Prueba) diseñados por mí. 
+Este espacio reúne una serie de artefactos de ingeniería de software (Historias de Usuario, Casos de Prueba y Matriz de Trasabilidad y) diseñados por mí. 
 
 **Nota de Confidencialidad y Propiedad Intelectual:**  
 Los escenarios presentados aquí están basados en desafíos técnicos y lógicas de negocio reales en los que he trabajado durante mi carrera. Con el fin de respetar los acuerdos de confidencialidad (NDA), toda la información ha sido totalmente anonimizada, generalizada y adaptada a contextos estándar de la industria. 
