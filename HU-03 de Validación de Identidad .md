@@ -4,6 +4,7 @@
 **Perfil:** Analista Funcional / QA Analyst  
 **Contexto del Sistema:** Módulo de Alta de Clientes dentro de la Plataforma Corporativa de Gestión.
  Es la pantalla de operaciones diarias, específicamente el formulario donde se da de alta a los nuevos clientes de forma segura.
+
 ---
 
 ##  Descripción General
