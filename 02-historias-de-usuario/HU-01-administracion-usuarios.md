@@ -1,6 +1,6 @@
 ﻿# HU-01 - Gestion de accesos, roles y permisos
 
-## Informacion general
+## Información general
 
 | Campo | Valor |
 |---|---|
@@ -12,6 +12,10 @@
 | Puntos estimados | 8 |
 | Iteracion | Sprint 1 |
 | Programador responsable | Por asignar |
+
+## Descripción
+
+Como usuario Administrador del sistema con rol `ADMIN_IT`, quiero acceder a un modulo centralizado de Administracion de Usuarios, Roles y Permisos, para controlar los accesos, desbloquear cuentas y definir que acciones puede realizar cada perfil dentro de la plataforma de analitica y operaciones.
 
 ## Reglas del negocio
 
@@ -36,30 +40,26 @@
 - Existe un usuario administrador raiz protegido.
 - Existen roles preestablecidos cargados en el sistema.
 
-## Descripcion
+## Criterios de aceptación
 
-Como usuario Administrador del sistema con rol `ADMIN_IT`, quiero acceder a un modulo centralizado de Administracion de Usuarios, Roles y Permisos, para controlar los accesos, desbloquear cuentas y definir que acciones puede realizar cada perfil dentro de la plataforma de analitica y operaciones.
+| ID | Dado | Cuando | Entonces |
+|---|---|---|---|
+| CA-01 | un usuario con rol `ADMIN_IT` esta autenticado | accede al modulo de Administracion | el sistema debe renderizar las secciones `Usuarios` y `Permisos`. |
+| CA-02 | se muestra la seccion `Usuarios` | No aplica | la tabla debe incluir usuario de Active Directory, nombre, rol, fecha de creacion, fecha de actualizacion, flag bloqueado, estado activo/inactivo y acciones de editar/eliminar. |
+| CA-03 | se muestra la seccion `Permisos` | No aplica | el sistema debe presentar una matriz interactiva de checkboxes por funcionalidad y rol, filtros de columnas, boton `Predeterminado` y boton `Guardar`. |
+| CA-04 | el Administrador IT hace clic en `Anadir usuario` | No aplica | se debe abrir un modal con buscador conectado al Directorio Activo. |
+| CA-05 | el administrador escribe en el buscador del Directorio Activo | No aplica | el sistema debe sugerir coincidencias en tiempo real por nombre o correo electronico. |
+| CA-06 | el administrador selecciona un usuario del Directorio Activo | No aplica | el sistema debe autocompletar nombre, apellido y correo, y permitir asignar un rol. |
+| CA-07 | el modal de creacion tiene campos validos | el administrador hace clic en `Crear` | el sistema debe validar que identificador y correo no esten duplicados. |
+| CA-08 | la creacion fue exitosa | No aplica | el modal debe cerrarse, la lista debe refrescarse en orden descendente por actualizacion y se debe mostrar un mensaje de exito. |
+| CA-09 | el administrador cancela la creacion de usuario | No aplica | el modal debe cerrarse, los datos temporales deben descartarse y la lista no debe modificarse. |
+| CA-10 | un usuario tiene `Bloqueado = True` | el Administrador IT desmarca el flag y guarda | el sistema debe actualizar `Bloqueado = False` y permitir acceso inmediato al empleado. |
+| CA-11 | un usuario sin rol administrativo intenta acceder al modulo | No aplica | el sistema debe denegar el acceso o redirigirlo. |
+| CA-12 | el administrador intenta salir con cambios pendientes | No aplica | el sistema debe mostrar una alerta de advertencia. |
+| CA-13 | existe un usuario raiz `ADMIN_IT` | No aplica | no debe poder editarse ni eliminarse. |
+| CA-14 | el administrador presiona `Predeterminado` | No aplica | el sistema debe solicitar confirmacion antes de restaurar la matriz de permisos original. |
 
-## Criterios de aceptacion
-
-| ID | Criterio |
-|---|---|
-| CA-01 | Dado que un usuario con rol `ADMIN_IT` esta autenticado, cuando accede al modulo de Administracion, entonces el sistema debe renderizar las secciones `Usuarios` y `Permisos`. |
-| CA-02 | Dado que se muestra la seccion `Usuarios`, entonces la tabla debe incluir usuario de Active Directory, nombre, rol, fecha de creacion, fecha de actualizacion, flag bloqueado, estado activo/inactivo y acciones de editar/eliminar. |
-| CA-03 | Dado que se muestra la seccion `Permisos`, entonces el sistema debe presentar una matriz interactiva de checkboxes por funcionalidad y rol, filtros de columnas, boton `Predeterminado` y boton `Guardar`. |
-| CA-04 | Dado que el Administrador IT hace clic en `Anadir usuario`, entonces se debe abrir un modal con buscador conectado al Directorio Activo. |
-| CA-05 | Dado que el administrador escribe en el buscador del Directorio Activo, entonces el sistema debe sugerir coincidencias en tiempo real por nombre o correo electronico. |
-| CA-06 | Dado que el administrador selecciona un usuario del Directorio Activo, entonces el sistema debe autocompletar nombre, apellido y correo, y permitir asignar un rol. |
-| CA-07 | Dado que el modal de creacion tiene campos validos, cuando el administrador hace clic en `Crear`, entonces el sistema debe validar que identificador y correo no esten duplicados. |
-| CA-08 | Dado que la creacion fue exitosa, entonces el modal debe cerrarse, la lista debe refrescarse en orden descendente por actualizacion y se debe mostrar un mensaje de exito. |
-| CA-09 | Dado que el administrador cancela la creacion de usuario, entonces el modal debe cerrarse, los datos temporales deben descartarse y la lista no debe modificarse. |
-| CA-10 | Dado que un usuario tiene `Bloqueado = True`, cuando el Administrador IT desmarca el flag y guarda, entonces el sistema debe actualizar `Bloqueado = False` y permitir acceso inmediato al empleado. |
-| CA-11 | Dado que un usuario sin rol administrativo intenta acceder al modulo, entonces el sistema debe denegar el acceso o redirigirlo. |
-| CA-12 | Dado que el administrador intenta salir con cambios pendientes, entonces el sistema debe mostrar una alerta de advertencia. |
-| CA-13 | Dado que existe un usuario raiz `ADMIN_IT`, entonces no debe poder editarse ni eliminarse. |
-| CA-14 | Dado que el administrador presiona `Predeterminado`, entonces el sistema debe solicitar confirmacion antes de restaurar la matriz de permisos original. |
-
-## Informacion adicional
+## Información adicional
 
 | Tema | Detalle |
 |---|---|

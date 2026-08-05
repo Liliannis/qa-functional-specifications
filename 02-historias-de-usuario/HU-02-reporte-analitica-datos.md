@@ -1,6 +1,6 @@
 ﻿# HU-02 - Reporte analitico y matriz de posicionamiento
 
-## Informacion general
+## Información general
 
 | Campo | Valor |
 |---|---|
@@ -12,6 +12,10 @@
 | Puntos estimados | 8 |
 | Iteracion | Sprint 2 |
 | Programador responsable | Por asignar |
+
+## Descripción
+
+Como Analista de Operaciones y Calidad, quiero generar un reporte comparativo semanal con filtros avanzados y exportacion de datos, para monitorear el posicionamiento competitivo, las calificaciones y el analisis de sentimiento de los hoteles frente a la competencia global.
 
 ## Reglas del negocio
 
@@ -35,28 +39,24 @@
 - Existen datos disponibles para la fecha actual y fecha base.
 - El servicio de reportes y exportacion esta disponible.
 
-## Descripcion
+## Criterios de aceptación
 
-Como Analista de Operaciones y Calidad, quiero generar un reporte comparativo semanal con filtros avanzados y exportacion de datos, para monitorear el posicionamiento competitivo, las calificaciones y el analisis de sentimiento de los hoteles frente a la competencia global.
+| ID | Dado | Cuando | Entonces |
+|---|---|---|---|
+| CA-01 | el analista esta en el modulo de analitica | selecciona rango de fechas, grupo hotelero y aplica filtros | el sistema debe ejecutar una peticion `POST` al endpoint `/api/v1/analytics/hotel-positioning`. |
+| CA-02 | el reporte carga correctamente | No aplica | la interfaz debe mostrar nombre de propiedad, ranking regional, diferencia de posicion, rating promedio, delta rating, porcentaje de comentarios negativos y volumen de resenas 5 estrellas. |
+| CA-03 | el usuario filtra por cadena hotelera y modalidad de alojamiento | No aplica | la tabla debe actualizarse mostrando solo registros que cumplan ambas condiciones. |
+| CA-04 | el usuario visualiza una lista filtrada | hace clic en `Exportar a Excel` | el sistema debe descargar un archivo `.xlsx`. |
+| CA-05 | se genera el archivo Excel | No aplica | los datos exportados deben coincidir en orden, columnas, registros y formato con los datos presentados en pantalla. |
+| CA-06 | el usuario selecciona un rango historico sin datos | genera el reporte | el backend debe responder `200 OK` con coleccion vacia `[]`. |
+| CA-07 | no hay datos disponibles | No aplica | la UI debe ocultar la tabla y mostrar el mensaje `No hay datos disponibles para los filtros aplicados`. |
+| CA-08 | la tabla muestra datos por defecto | el usuario hace clic en `% Negativos` | el sistema debe ordenar de mayor a menor porcentaje. |
+| CA-09 | el usuario hace un segundo clic en `% Negativos` | No aplica | el sistema debe invertir el orden de menor a mayor. |
+| CA-10 | se calcula la diferencia de posicion | No aplica | el backend debe aplicar `Ranking Fecha Base - Ranking Fecha Actual`. |
+| CA-11 | se calcula el porcentaje de comentarios negativos | No aplica | el backend debe aplicar `(comentarios 1 y 2 estrellas / total comentarios del periodo) * 100`. |
+| CA-12 | se calcula volumen de resenas 5 estrellas | No aplica | el backend debe contar solo registros con calificacion igual a `5.0` dentro del rango seleccionado. |
 
-## Criterios de aceptacion
-
-| ID | Criterio |
-|---|---|
-| CA-01 | Dado que el analista esta en el modulo de analitica, cuando selecciona rango de fechas, grupo hotelero y aplica filtros, entonces el sistema debe ejecutar una peticion `POST` al endpoint `/api/v1/analytics/hotel-positioning`. |
-| CA-02 | Dado que el reporte carga correctamente, entonces la interfaz debe mostrar nombre de propiedad, ranking regional, diferencia de posicion, rating promedio, delta rating, porcentaje de comentarios negativos y volumen de resenas 5 estrellas. |
-| CA-03 | Dado que el usuario filtra por cadena hotelera y modalidad de alojamiento, entonces la tabla debe actualizarse mostrando solo registros que cumplan ambas condiciones. |
-| CA-04 | Dado que el usuario visualiza una lista filtrada, cuando hace clic en `Exportar a Excel`, entonces el sistema debe descargar un archivo `.xlsx`. |
-| CA-05 | Dado que se genera el archivo Excel, entonces los datos exportados deben coincidir en orden, columnas, registros y formato con los datos presentados en pantalla. |
-| CA-06 | Dado que el usuario selecciona un rango historico sin datos, cuando genera el reporte, entonces el backend debe responder `200 OK` con coleccion vacia `[]`. |
-| CA-07 | Dado que no hay datos disponibles, entonces la UI debe ocultar la tabla y mostrar el mensaje `No hay datos disponibles para los filtros aplicados`. |
-| CA-08 | Dado que la tabla muestra datos por defecto, cuando el usuario hace clic en `% Negativos`, entonces el sistema debe ordenar de mayor a menor porcentaje. |
-| CA-09 | Dado que el usuario hace un segundo clic en `% Negativos`, entonces el sistema debe invertir el orden de menor a mayor. |
-| CA-10 | Dado que se calcula la diferencia de posicion, entonces el backend debe aplicar `Ranking Fecha Base - Ranking Fecha Actual`. |
-| CA-11 | Dado que se calcula el porcentaje de comentarios negativos, entonces el backend debe aplicar `(comentarios 1 y 2 estrellas / total comentarios del periodo) * 100`. |
-| CA-12 | Dado que se calcula volumen de resenas 5 estrellas, entonces el backend debe contar solo registros con calificacion igual a `5.0` dentro del rango seleccionado. |
-
-## Informacion adicional
+## Información adicional
 
 | Tema | Detalle |
 |---|---|

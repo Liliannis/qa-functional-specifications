@@ -1,6 +1,6 @@
 ﻿# HU-03 - Validacion de identidad en registro de clientes
 
-## Informacion general
+## Información general
 
 | Campo | Valor |
 |---|---|
@@ -12,6 +12,10 @@
 | Puntos estimados | 5 |
 | Iteracion | Sprint 2 |
 | Programador responsable | Por asignar |
+
+## Descripción
+
+Como Operador del Sistema, quiero que el sistema valide el documento de identidad de los nuevos clientes con el servicio de verificacion antes de finalizar el registro, para evitar errores de carga, prevenir fraude y asegurar que solo ingresen datos reales al sistema.
 
 ## Reglas del negocio
 
@@ -35,26 +39,22 @@
 - Los campos obligatorios del formulario estan disponibles.
 - El formulario inicia con estado interno `Pendiente`.
 
-## Descripcion
+## Criterios de aceptación
 
-Como Operador del Sistema, quiero que el sistema valide el documento de identidad de los nuevos clientes con el servicio de verificacion antes de finalizar el registro, para evitar errores de carga, prevenir fraude y asegurar que solo ingresen datos reales al sistema.
+| ID | Dado | Cuando | Entonces |
+|---|---|---|---|
+| CA-01 | el operador abre el formulario de nuevo cliente | No aplica | el cliente debe iniciar con estado interno `Pendiente` y el boton `Guardar Registro` debe estar deshabilitado. |
+| CA-02 | el formulario tiene vacio `Tipo de Documento`, `Numero de Documento` o `Pais de Emision` | No aplica | el boton `Validar Documento` debe permanecer deshabilitado. |
+| CA-03 | los tres campos obligatorios estan completos | el operador hace clic en `Validar Documento` | el sistema debe bloquear los campos de identidad y mostrar un indicador de carga. |
+| CA-04 | el proveedor confirma la identidad | No aplica | el sistema debe mostrar `Documento Verificado` en color verde, cambiar el estado interno a `Verificado` y habilitar `Guardar Registro`. |
+| CA-05 | el documento esta vencido o no existe | el proveedor rechaza la validacion | el sistema debe limpiar `Numero de Documento`. |
+| CA-06 | la validacion fue rechazada | No aplica | el sistema debe mostrar `Documento invalido o expirado. Verifique los datos.`, mantener estado `Pendiente` y dejar `Guardar Registro` deshabilitado. |
+| CA-07 | el servicio tarda mas de 5 segundos o devuelve error de conexion | No aplica | el sistema debe liberar el formulario automaticamente. |
+| CA-08 | ocurre timeout o caida del servicio | No aplica | el sistema debe mostrar `Servicio temporalmente no disponible. El registro pasara a revision manual.`. |
+| CA-09 | ocurre timeout o caida del servicio | No aplica | el sistema debe cambiar el estado interno a `Revision Manual` y habilitar `Guardar Registro`. |
+| CA-10 | la validacion esta en proceso | No aplica | el operador no debe poder modificar tipo de documento, numero de documento ni pais de emision. |
 
-## Criterios de aceptacion
-
-| ID | Criterio |
-|---|---|
-| CA-01 | Dado que el operador abre el formulario de nuevo cliente, entonces el cliente debe iniciar con estado interno `Pendiente` y el boton `Guardar Registro` debe estar deshabilitado. |
-| CA-02 | Dado que el formulario tiene vacio `Tipo de Documento`, `Numero de Documento` o `Pais de Emision`, entonces el boton `Validar Documento` debe permanecer deshabilitado. |
-| CA-03 | Dado que los tres campos obligatorios estan completos, cuando el operador hace clic en `Validar Documento`, entonces el sistema debe bloquear los campos de identidad y mostrar un indicador de carga. |
-| CA-04 | Dado que el proveedor confirma la identidad, entonces el sistema debe mostrar `Documento Verificado` en color verde, cambiar el estado interno a `Verificado` y habilitar `Guardar Registro`. |
-| CA-05 | Dado que el documento esta vencido o no existe, cuando el proveedor rechaza la validacion, entonces el sistema debe limpiar `Numero de Documento`. |
-| CA-06 | Dado que la validacion fue rechazada, entonces el sistema debe mostrar `Documento invalido o expirado. Verifique los datos.`, mantener estado `Pendiente` y dejar `Guardar Registro` deshabilitado. |
-| CA-07 | Dado que el servicio tarda mas de 5 segundos o devuelve error de conexion, entonces el sistema debe liberar el formulario automaticamente. |
-| CA-08 | Dado que ocurre timeout o caida del servicio, entonces el sistema debe mostrar `Servicio temporalmente no disponible. El registro pasara a revision manual.`. |
-| CA-09 | Dado que ocurre timeout o caida del servicio, entonces el sistema debe cambiar el estado interno a `Revision Manual` y habilitar `Guardar Registro`. |
-| CA-10 | Dado que la validacion esta en proceso, entonces el operador no debe poder modificar tipo de documento, numero de documento ni pais de emision. |
-
-## Informacion adicional
+## Información adicional
 
 | Tema | Detalle |
 |---|---|

@@ -1,6 +1,6 @@
 ﻿# FSD - Especificacion funcional del caso corporativo QA
 
-Este documento define el alcance funcional usado como base para las historias de usuario, escenarios Gherkin, matriz de trazabilidad, evidencias de ejecucion manual y defectos simulados incluidos en este portfolio QA.
+Este documento define el alcance funcional usado como base para las historias de usuario, escenarios Gherkin, matriz de trazabilidad, evidencias de ejecucion manual y bugs encontrados incluidos en este portfolio QA.
 
 > Nota de confidencialidad: este es un caso anonimizado y adaptado para portfolio. No contiene nombres de clientes, URLs privadas, credenciales, datos productivos ni reglas confidenciales reales.
 
@@ -12,7 +12,7 @@ El sistema representa una plataforma corporativa con tres areas funcionales cone
 2. reportes analiticos y validacion de datos para dashboards de negocio;
 3. validacion de identidad durante el alta de clientes.
 
-El objetivo QA es validar reglas de negocio, control de accesos, consistencia de datos, manejo de errores y trazabilidad entre requisitos y pruebas.
+El objetivo funcional es definir las reglas, interacciones, datos intercambiados y respuestas esperadas en cada modulo.
 
 ## 2. Alcance
 
@@ -25,7 +25,7 @@ El objetivo QA es validar reglas de negocio, control de accesos, consistencia de
 - Comportamiento del formulario de validacion de identidad.
 - Manejo de respuestas aprobadas, rechazadas, expiradas y timeout.
 - Diseno de pruebas manuales y evidencias simuladas.
-- Reporte de defectos simulados.
+- Registro de bugs encontrados simulados.
 
 ### No incluye
 
@@ -108,28 +108,47 @@ Capacidades principales:
 - Las validaciones largas deben mostrar retroalimentacion visual.
 - Cada requisito debe mapearse al menos a un caso de prueba.
 
-## 7. Estrategia QA
+## 7. Formatos de entrada y salida
 
-La validacion combina:
+| Modulo | Entradas funcionales | Salidas esperadas |
+|---|---|---|
+| Administracion de usuarios | Credenciales autenticadas, identificador de usuario, rol, permisos seleccionados y confirmacion de cambios criticos | Listado actualizado, matriz de permisos persistida, mensaje de confirmacion o denegacion de acceso |
+| Reporte analitico | Rango de fechas, grupo hotelero, categoria y modalidad de alojamiento | Tabla filtrada, metricas calculadas, estado vacio o archivo `.xlsx` con los filtros aplicados |
+| Validacion de identidad | Tipo y numero de documento, pais de emision y accion `Validar Documento` | Estado `Verificado`, `Pendiente` o `Revision Manual`, mensaje contextual y habilitacion o bloqueo de guardado |
 
-- historias de usuario;
-- criterios de aceptacion;
-- escenarios Gherkin;
-- matriz de trazabilidad;
-- evidencias de ejecucion manual simulada;
-- defectos simulados;
-- futura validacion API con Postman;
-- futura automatizacion UI con Playwright y TypeScript.
+Las salidas deben conservar los datos y formatos definidos por cada modulo. En particular, la exportacion analitica mantiene las fechas como Date y los porcentajes como Numeric.
 
-## 8. Principio de trazabilidad
+## 8. Manejo de errores y excepciones
 
-Cada historia de usuario debe relacionarse con:
+| Situacion | Comportamiento esperado | Resultado para el usuario |
+|---|---|---|
+| Acceso sin rol administrativo | Denegar el acceso o redirigir a una vista autorizada | Mensaje o redireccion que informe la falta de permisos |
+| Cambios criticos sin confirmacion | No persistir la operacion | Solicitud de confirmacion antes de continuar |
+| Navegacion con cambios sin guardar | Mantener los cambios en espera | Advertencia para confirmar la salida o permanecer en el modulo |
+| Consulta analitica sin resultados | Responder exitosamente con coleccion vacia | Estado vacio controlado, sin tabla de resultados |
+| Error o timeout del proveedor de identidad | Liberar el formulario y registrar estado de contingencia | Mensaje de indisponibilidad y estado `Revision Manual` para continuar el registro |
+| Documento rechazado o expirado | Limpiar el numero de documento y no habilitar el guardado | Mensaje accionable y estado `Pendiente` |
 
-1. reglas de negocio;
-2. precondiciones;
-3. criterios de aceptacion;
-4. casos de prueba;
-5. evidencia de ejecucion;
-6. defectos, cuando aplique.
+## 9. Flujos funcionales resumidos
 
-Esto demuestra el flujo completo de QA: requisito -> criterio -> caso -> ejecucion -> defecto -> trazabilidad.
+### 9.1 Gestion de accesos y permisos
+
+1. Un usuario autenticado intenta acceder al modulo administrativo.
+2. El sistema valida el rol `ADMIN_IT`.
+3. El administrador consulta usuarios o modifica permisos.
+4. Ante una accion critica, el sistema solicita confirmacion antes de guardar.
+5. El sistema actualiza la informacion o informa la restriccion aplicable.
+
+### 9.2 Consulta y exportacion de reporte analitico
+
+1. El usuario selecciona fechas y filtros.
+2. El sistema calcula y presenta los indicadores para la seleccion vigente.
+3. El usuario puede ordenar la tabla sin perder los filtros aplicados.
+4. Si existen datos, puede exportarlos en `.xlsx`; si no existen, se muestra un estado vacio controlado.
+
+### 9.3 Registro con validacion de identidad
+
+1. El operador completa los campos obligatorios del documento.
+2. El sistema habilita la accion de validacion y bloquea los campos mientras procesa la respuesta.
+3. Una respuesta aprobada habilita el guardado; una respuesta rechazada mantiene el registro pendiente.
+4. Un timeout o error de conexion libera el formulario y deriva el registro a `Revision Manual`.
