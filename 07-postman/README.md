@@ -1,33 +1,52 @@
-# Tienda Deportiva - Postman API Testing Portfolio Evidence
+﻿# Postman - Evidencia de validación API
 
-This folder contains an improved Postman API testing collection for an Auth/Profile service.
+Esta carpeta contiene evidencia de pruebas API realizadas con Postman sobre una API demo de tienda deportiva.
 
-## What this demonstrates
+En esta primera versión, la cobertura se enfoca principalmente en autenticación y perfil de usuario. A futuro, la evidencia puede ampliarse hacia otros módulos de la tienda deportiva, como productos, carrito, órdenes y pagos simulados.
 
-- Data-driven testing with JSON files.
-- Positive and negative API test scenarios.
-- Status code and response message validation.
-- Response body validation.
-- Bearer token authentication.
-- Dynamic test data generation.
-- Basic JavaScript test scripts in Postman.
-- Protected endpoint validation without token.
-- Safe portfolio evidence without client data or private credentials.
+## Alcance actual
 
-## Files
+| Área | Cobertura actual |
+|---|---|
+| Autenticación | Registro, login, recuperación y confirmación de contraseña |
+| Perfil de usuario | Consulta, actualización total, actualización parcial y eliminación de perfil |
+| Seguridad básica | Validación de endpoints protegidos sin token |
+| Datos de prueba | Archivos JSON para ejecución data-driven |
 
-- `tienda-deportiva-improved.postman_collection.json` - Improved Postman collection.
-- `tienda-deportiva-local.example.postman_environment.json` - Example local environment without secrets.
-- `data/` - JSON data files for Collection Runner.
+## Importante sobre el contexto
 
-## How to use
+Esta evidencia no forma parte directa de las historias de usuario documentadas en las carpetas anteriores del repositorio. Se incluye como evidencia complementaria para demostrar validación API con Postman, manejo de environments, datos externos y escenarios positivos/negativos.
 
-1. Import the collection into Postman.
-2. Import the example environment.
-3. Set `base_url` to your local API URL, usually `http://localhost:8080`.
-4. Set `auth_email` and `auth_password` only in your local Postman environment if you want to run authenticated profile requests.
-5. Run data-driven requests with the matching JSON file from the `data/` folder.
+La API no se publica como servicio online. La colección está preparada para ejecutarse contra una API local o demo usando la variable `base_url` del environment.
 
-## Privacy note
+## Qué demuestra
 
-This portfolio evidence uses local/demo data only. It does not include client data, production endpoints, real tokens, API keys, or confidential business information.
+- Pruebas API data-driven con archivos JSON.
+- Escenarios positivos y negativos.
+- Validación de status codes y mensajes de respuesta.
+- Validación del cuerpo de respuesta.
+- Autenticación con Bearer token.
+- Generación dinámica de datos de prueba.
+- Scripts básicos de validación en JavaScript dentro de Postman.
+- Validación de endpoints protegidos sin token.
+- Evidencia segura para portfolio, sin datos reales de clientes ni credenciales privadas.
+
+## Archivos incluidos
+
+- `contexto-api.md`: contexto funcional de la API demo usada para las pruebas.
+- `casos-api.md`: listado de escenarios positivos y negativos cubiertos.
+- `tienda-deportiva-improved.postman_collection.json`: colección Postman mejorada.
+- `tienda-deportiva-local.example.postman_environment.json`: environment local de ejemplo sin secretos.
+- `data/`: archivos JSON para ejecutar pruebas data-driven con Collection Runner.
+
+## Cómo usarlo
+
+1. Importar la colección en Postman.
+2. Importar el environment de ejemplo.
+3. Configurar `base_url` con la URL local de la API, por ejemplo `http://localhost:8080`.
+4. Configurar `auth_email` y `auth_password` únicamente en tu environment local de Postman si querés ejecutar requests autenticados de perfil.
+5. Ejecutar los requests data-driven usando el archivo JSON correspondiente dentro de la carpeta `data/`.
+
+## Nota de privacidad
+
+Esta evidencia usa datos locales/de demostración. No incluye datos de clientes, endpoints productivos, tokens reales, API keys ni información confidencial de negocio.
