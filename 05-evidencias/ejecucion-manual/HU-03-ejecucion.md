@@ -1,4 +1,4 @@
-﻿# Ejecucion manual - HU-03
+﻿# Ejecución manual - HU-03
 
 > Evidencia simulada para portfolio.
 
@@ -15,4 +15,4 @@
 
 ## Conclusion QA
 
-La validacion cubre flujos positivos, negativos y resiliencia. Los hallazgos muestran riesgos de operacion y recuperacion ante errores externos.
+La validación cubre flujos positivos, negativos y resiliencia. Los hallazgos muestran riesgos de operación y recuperación ante errores externos.

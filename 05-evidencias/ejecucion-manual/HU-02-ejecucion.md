@@ -1,4 +1,4 @@
-﻿# Ejecucion manual - HU-02
+﻿# Ejecución manual - HU-02
 
 > Evidencia simulada para portfolio.
 
@@ -15,4 +15,4 @@
 
 ## Conclusion QA
 
-La validacion cubre calculos, filtros, ordenamiento, exportacion y estados vacios. Los defectos impactan confianza en datos y consistencia entre pantalla y archivo exportado.
+La validación cubre cálculos, filtros, ordenamiento, exportación y estados vacíos. Los defectos impactan confianza en datos y consistencia entre pantalla y archivo exportado.

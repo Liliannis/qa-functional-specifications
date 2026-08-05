@@ -25,7 +25,7 @@ Estos casos documentan los escenarios principales cubiertos por la colección Po
 
 - Status code esperado por escenario.
 - Mensajes de respuesta cuando aplica.
-- Presencia de token en login exitoso.
+- Presencia de token en login éxitoso.
 - Ausencia de token en login fallido.
 - No exposición de contraseña en respuestas.
 - No exposición de stack traces o errores técnicos internos.

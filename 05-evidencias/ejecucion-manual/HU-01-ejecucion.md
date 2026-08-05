@@ -1,4 +1,4 @@
-﻿# Ejecucion manual - HU-01
+﻿# Ejecución manual - HU-01
 
 > Evidencia simulada para portfolio.
 
@@ -15,4 +15,4 @@
 
 ## Conclusion QA
 
-La cobertura valida reglas de acceso, cambios criticos y proteccion de cuenta raiz. Los fallos detectados representan riesgo de seguridad funcional y configuracion accidental.
+La cobertura valida reglas de acceso, cambios críticos y protección de cuenta raíz. Los fallos detectados representan riesgo de seguridad funcional y configuración accidental.

@@ -9,9 +9,9 @@ Alta
 Media
 
 ## HU relacionada
-HU-03 - Validacion de identidad en onboarding
+HU-03 - Validación de identidad en onboarding
 
-## Descripcion
+## Descripción
 
 Cuando el proveedor externo de identidad no responde, el formulario permanece en estado de carga indefinido.
 
@@ -19,12 +19,12 @@ Cuando el proveedor externo de identidad no responde, el formulario permanece en
 
 1. Completar los campos obligatorios del formulario de identidad.
 2. Simular latencia del proveedor externo.
-3. Iniciar validacion.
-4. Esperar mas de cinco segundos.
+3. Iniciar validación.
+4. Esperar más de cinco segundos.
 
 ## Resultado esperado
 
-El sistema debe finalizar el loading, informar indisponibilidad temporal y permitir derivar el caso a revision manual.
+El sistema debe finalizar el loading, informar indisponibilidad temporal y permitir derivar el caso a revisión manual.
 
 ## Resultado obtenido
 
@@ -36,4 +36,4 @@ Bloqueo operativo durante onboarding y posible abandono del registro.
 
 ## Recomendacion QA
 
-Definir timeout tecnico y funcional. Agregar manejo de error visible y estado recuperable para el operador.
+Definir timeout técnico y funcional. Agregar manejo de error visible y estado recuperable para el operador.

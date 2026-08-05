@@ -1,4 +1,4 @@
-﻿# BUG-004 - Cambios de permisos guardados sin confirmacion
+﻿# BUG-004 - Cambios de permisos guardados sin confirmación
 
 > Defecto simulado para portfolio, derivado de escenarios funcionales anonimizados.
 
@@ -9,11 +9,11 @@ Media
 Alta
 
 ## HU relacionada
-HU-01 - Gestion de accesos, roles y permisos
+HU-01 - Gestión de accesos, roles y permisos
 
-## Descripcion
+## Descripción
 
-El sistema guarda cambios de permisos inmediatamente despues de presionar `Guardar`, sin mostrar la confirmacion requerida para cambios criticos.
+El sistema guarda cambios de permisos inmediatamente después de presionar `Guardar`, sin mostrar la confirmación requerida para cambios críticos.
 
 ## Pasos para reproducir
 
@@ -24,16 +24,16 @@ El sistema guarda cambios de permisos inmediatamente despues de presionar `Guard
 
 ## Resultado esperado
 
-El sistema debe mostrar una confirmacion antes de aplicar los cambios de permisos.
+El sistema debe mostrar una confirmación antes de aplicar los cambios de permisos.
 
 ## Resultado obtenido
 
-Los cambios se guardan inmediatamente sin confirmacion previa.
+Los cambios se guardan inmediatamente sin confirmación previa.
 
 ## Impacto
 
-Cambios criticos de acceso pueden aplicarse por error, aumentando el riesgo de permisos incorrectos.
+Cambios críticos de acceso pueden aplicarse por error, aumentando el riesgo de permisos incorrectos.
 
 ## Recomendacion QA
 
-Agregar modal de confirmacion y evento de auditoria antes de persistir cambios criticos de permisos.
+Agregar modal de confirmación y evento de auditoria antes de persistir cambios críticos de permisos.
