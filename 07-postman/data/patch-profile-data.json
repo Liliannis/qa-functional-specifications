@@ -1,0 +1,20 @@
+[
+  {
+    "testCase": "Patch name successful",
+    "name": "Lili",
+    "status": 200,
+    "message": ""
+  },
+  {
+    "testCase": "Patch empty name",
+    "name": "",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Patch blank name",
+    "name": "   ",
+    "status": 400,
+    "message": ""
+  }
+]

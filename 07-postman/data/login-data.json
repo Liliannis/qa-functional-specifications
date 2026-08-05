@@ -1,0 +1,44 @@
+[
+  {
+    "testCase": "Login successful",
+    "email": "portfolio.register.ok@example.com",
+    "password": "QaTest123!",
+    "status": 200,
+    "message": ""
+  },
+  {
+    "testCase": "Incorrect password",
+    "email": "portfolio.register.ok@example.com",
+    "password": "Wrong123!",
+    "status": 401,
+    "message": "Invalid credentials"
+  },
+  {
+    "testCase": "Non-existing email",
+    "email": "not.found@example.com",
+    "password": "QaTest123!",
+    "status": 404,
+    "message": "User not found"
+  },
+  {
+    "testCase": "Empty email",
+    "email": "",
+    "password": "QaTest123!",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Empty password",
+    "email": "portfolio.register.ok@example.com",
+    "password": "",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Invalid email format",
+    "email": "invalid-email",
+    "password": "QaTest123!",
+    "status": 400,
+    "message": "Invalid email"
+  }
+]

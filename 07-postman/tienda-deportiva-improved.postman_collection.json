@@ -1,0 +1,1113 @@
+{
+  "info": {
+    "_postman_id": "6907f5d3-48d6-413e-b545-20ba1f2b8a48",
+    "name": "Tienda Deportiva - API Testing Portfolio Improved",
+    "description": "Improved Postman collection for Auth and Profile API testing. Includes data-driven testing, positive and negative scenarios, bearer token handling, dynamic data, and portfolio-safe scripts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth - Data Driven",
+      "item": [
+        {
+          "name": "Register",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\",\n  \"name\": \"{{name}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"shippingAddress\": \"{{shippingAddress}}\",\n  \"dateOfBirth\": \"{{dateOfBirth}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.iterationData.toObject();\n",
+                  "Object.keys(data).forEach((key) => {\n",
+                  "  pm.variables.set(key, data[key]);\n",
+                  "});\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "const contentType = pm.response.headers.get(\"Content-Type\") || \"\";\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "\n",
+                  "const expectedStatus = Number(pm.iterationData.get(\"status\"));\n",
+                  "const expectedMessage = pm.iterationData.get(\"message\");\n",
+                  "const testCase = pm.iterationData.get(\"testCase\") || pm.info.requestName;\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Status code matches expected result`, function () {\n",
+                  "  pm.response.to.have.status(expectedStatus);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response time is acceptable`, function () {\n",
+                  "  pm.expect(pm.response.responseTime).to.be.below(2000);\n",
+                  "});\n",
+                  "\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  pm.test(`[${testCase}] Response is valid JSON`, function () {\n",
+                  "    pm.response.to.be.json;\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "if (expectedMessage) {\n",
+                  "  pm.test(`[${testCase}] Response message matches expected result`, function () {\n",
+                  "    pm.expect(response.message).to.eql(expectedMessage);\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response does not expose sensitive fields`, function () {\n",
+                  "  pm.expect(response).to.not.have.property(\"password\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n",
+                  "\n",
+                  "if (pm.response.code === 201) {\n",
+                  "  pm.test(\"Successful register returns expected user data\", function () {\n",
+                  "    pm.expect(response.email).to.eql(pm.iterationData.get(\"email\"));\n",
+                  "    pm.expect(response.name).to.eql(pm.iterationData.get(\"name\"));\n",
+                  "  });\n",
+                  "}\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.iterationData.toObject();\n",
+                  "Object.keys(data).forEach((key) => {\n",
+                  "  pm.variables.set(key, data[key]);\n",
+                  "});\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "const contentType = pm.response.headers.get(\"Content-Type\") || \"\";\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "\n",
+                  "const expectedStatus = Number(pm.iterationData.get(\"status\"));\n",
+                  "const expectedMessage = pm.iterationData.get(\"message\");\n",
+                  "const testCase = pm.iterationData.get(\"testCase\") || pm.info.requestName;\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Status code matches expected result`, function () {\n",
+                  "  pm.response.to.have.status(expectedStatus);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response time is acceptable`, function () {\n",
+                  "  pm.expect(pm.response.responseTime).to.be.below(2000);\n",
+                  "});\n",
+                  "\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  pm.test(`[${testCase}] Response is valid JSON`, function () {\n",
+                  "    pm.response.to.be.json;\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "if (expectedMessage) {\n",
+                  "  pm.test(`[${testCase}] Response message matches expected result`, function () {\n",
+                  "    pm.expect(response.message).to.eql(expectedMessage);\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response does not expose sensitive fields`, function () {\n",
+                  "  pm.expect(response).to.not.have.property(\"password\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n",
+                  "\n",
+                  "if (pm.response.code === 200) {\n",
+                  "  pm.test(\"Access token is returned on successful login\", function () {\n",
+                  "    pm.expect(response.accessToken).to.be.a(\"string\").and.not.empty;\n",
+                  "  });\n",
+                  "  pm.environment.set(\"access_token\", response.accessToken);\n",
+                  "}\n",
+                  "\n",
+                  "if (pm.response.code !== 200) {\n",
+                  "  pm.test(\"Access token is not returned on failed login\", function () {\n",
+                  "    pm.expect(response).to.not.have.property(\"accessToken\");\n",
+                  "  });\n",
+                  "}\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.iterationData.toObject();\n",
+                  "Object.keys(data).forEach((key) => {\n",
+                  "  pm.variables.set(key, data[key]);\n",
+                  "});\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "const contentType = pm.response.headers.get(\"Content-Type\") || \"\";\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "\n",
+                  "const expectedStatus = Number(pm.iterationData.get(\"status\"));\n",
+                  "const expectedMessage = pm.iterationData.get(\"message\");\n",
+                  "const testCase = pm.iterationData.get(\"testCase\") || pm.info.requestName;\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Status code matches expected result`, function () {\n",
+                  "  pm.response.to.have.status(expectedStatus);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response time is acceptable`, function () {\n",
+                  "  pm.expect(pm.response.responseTime).to.be.below(2000);\n",
+                  "});\n",
+                  "\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  pm.test(`[${testCase}] Response is valid JSON`, function () {\n",
+                  "    pm.response.to.be.json;\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "if (expectedMessage) {\n",
+                  "  pm.test(`[${testCase}] Response message matches expected result`, function () {\n",
+                  "    pm.expect(response.message).to.eql(expectedMessage);\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response does not expose sensitive fields`, function () {\n",
+                  "  pm.expect(response).to.not.have.property(\"password\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Confirm Password Reset",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/confirm-reset-password",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "confirm-reset-password"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"resetToken\": \"{{resetToken}}\",\n  \"newPassword\": \"{{newPassword}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.iterationData.toObject();\n",
+                  "Object.keys(data).forEach((key) => {\n",
+                  "  pm.variables.set(key, data[key]);\n",
+                  "});\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "const contentType = pm.response.headers.get(\"Content-Type\") || \"\";\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "\n",
+                  "const expectedStatus = Number(pm.iterationData.get(\"status\"));\n",
+                  "const expectedMessage = pm.iterationData.get(\"message\");\n",
+                  "const testCase = pm.iterationData.get(\"testCase\") || pm.info.requestName;\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Status code matches expected result`, function () {\n",
+                  "  pm.response.to.have.status(expectedStatus);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response time is acceptable`, function () {\n",
+                  "  pm.expect(pm.response.responseTime).to.be.below(2000);\n",
+                  "});\n",
+                  "\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  pm.test(`[${testCase}] Response is valid JSON`, function () {\n",
+                  "    pm.response.to.be.json;\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "if (expectedMessage) {\n",
+                  "  pm.test(`[${testCase}] Response message matches expected result`, function () {\n",
+                  "    pm.expect(response.message).to.eql(expectedMessage);\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response does not expose sensitive fields`, function () {\n",
+                  "  pm.expect(response).to.not.have.property(\"password\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Profile - Authenticated",
+      "item": [
+        {
+          "name": "Login Auth",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{auth_email}}\",\n  \"password\": \"{{auth_password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "const contentType = pm.response.headers.get(\"Content-Type\") || \"\";\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "\n",
+                  "const expectedStatus = Number(pm.iterationData.get(\"status\"));\n",
+                  "const expectedMessage = pm.iterationData.get(\"message\");\n",
+                  "const testCase = pm.iterationData.get(\"testCase\") || pm.info.requestName;\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Status code matches expected result`, function () {\n",
+                  "  pm.response.to.have.status(expectedStatus);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response time is acceptable`, function () {\n",
+                  "  pm.expect(pm.response.responseTime).to.be.below(2000);\n",
+                  "});\n",
+                  "\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  pm.test(`[${testCase}] Response is valid JSON`, function () {\n",
+                  "    pm.response.to.be.json;\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "if (expectedMessage) {\n",
+                  "  pm.test(`[${testCase}] Response message matches expected result`, function () {\n",
+                  "    pm.expect(response.message).to.eql(expectedMessage);\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response does not expose sensitive fields`, function () {\n",
+                  "  pm.expect(response).to.not.have.property(\"password\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n",
+                  "\n",
+                  "if (pm.response.code === 200) {\n",
+                  "  pm.test(\"Access token is returned on successful login\", function () {\n",
+                  "    pm.expect(response.accessToken).to.be.a(\"string\").and.not.empty;\n",
+                  "  });\n",
+                  "  pm.environment.set(\"access_token\", response.accessToken);\n",
+                  "}\n",
+                  "\n",
+                  "if (pm.response.code !== 200) {\n",
+                  "  pm.test(\"Access token is not returned on failed login\", function () {\n",
+                  "    pm.expect(response).to.not.have.property(\"accessToken\");\n",
+                  "  });\n",
+                  "}\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Get Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "if (pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "pm.test(\"Profile is retrieved successfully\", function () { pm.response.to.have.status(200); });\n",
+                  "pm.test(\"Profile contains required fields\", function () {\n",
+                  "  pm.expect(response).to.have.property(\"email\");\n",
+                  "  pm.expect(response).to.have.property(\"name\");\n",
+                  "  pm.expect(response).to.have.property(\"lastName\");\n",
+                  "  pm.expect(response).to.have.property(\"shippingAddress\");\n",
+                  "  pm.expect(response).to.have.property(\"dateOfBirth\");\n",
+                  "});\n",
+                  "if (pm.environment.get(\"dynamic_email\")) {\n",
+                  "  pm.test(\"Profile email matches registered user\", function () {\n",
+                  "    pm.expect(response.email).to.eql(pm.environment.get(\"dynamic_email\"));\n",
+                  "  });\n",
+                  "}\n",
+                  "pm.test(\"Password is not returned\", function () { pm.expect(response).to.not.have.property(\"password\"); });\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{name}}\",\n  \"lastName\": \"{{lastName}}\",\n  \"email\": \"{{email}}\",\n  \"shippingAddress\": \"{{shippingAddress}}\",\n  \"dateOfBirth\": \"{{dateOfBirth}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.iterationData.toObject();\n",
+                  "Object.keys(data).forEach((key) => {\n",
+                  "  pm.variables.set(key, data[key]);\n",
+                  "});\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "const contentType = pm.response.headers.get(\"Content-Type\") || \"\";\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "\n",
+                  "const expectedStatus = Number(pm.iterationData.get(\"status\"));\n",
+                  "const expectedMessage = pm.iterationData.get(\"message\");\n",
+                  "const testCase = pm.iterationData.get(\"testCase\") || pm.info.requestName;\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Status code matches expected result`, function () {\n",
+                  "  pm.response.to.have.status(expectedStatus);\n",
+                  "});\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response time is acceptable`, function () {\n",
+                  "  pm.expect(pm.response.responseTime).to.be.below(2000);\n",
+                  "});\n",
+                  "\n",
+                  "if (contentType.includes(\"application/json\") && pm.response.text()) {\n",
+                  "  pm.test(`[${testCase}] Response is valid JSON`, function () {\n",
+                  "    pm.response.to.be.json;\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "if (expectedMessage) {\n",
+                  "  pm.test(`[${testCase}] Response message matches expected result`, function () {\n",
+                  "    pm.expect(response.message).to.eql(expectedMessage);\n",
+                  "  });\n",
+                  "}\n",
+                  "\n",
+                  "pm.test(`[${testCase}] Response does not expose sensitive fields`, function () {\n",
+                  "  pm.expect(response).to.not.have.property(\"password\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n",
+                  "\n",
+                  "if (pm.response.code === 200) {\n",
+                  "  pm.test(\"Updated user data matches request data\", function () {\n",
+                  "    pm.expect(response.name).to.eql(pm.iterationData.get(\"name\"));\n",
+                  "    pm.expect(response.lastName).to.eql(pm.iterationData.get(\"lastName\"));\n",
+                  "    pm.expect(response.email).to.eql(pm.iterationData.get(\"email\"));\n",
+                  "    pm.expect(response.shippingAddress).to.eql(pm.iterationData.get(\"shippingAddress\"));\n",
+                  "  });\n",
+                  "}\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Partially Update Profile",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"{{name}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.iterationData.toObject();\n",
+                  "Object.keys(data).forEach((key) => {\n",
+                  "  pm.variables.set(key, data[key]);\n",
+                  "});\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "if (pm.response.text()) { response = pm.response.json(); }\n",
+                  "pm.test(\"Status code matches expected result\", function () { pm.response.to.have.status(Number(pm.iterationData.get(\"status\"))); });\n",
+                  "if (pm.response.code === 200 && pm.iterationData.get(\"name\")) {\n",
+                  "  pm.test(\"Patched name matches request data\", function () { pm.expect(response.name).to.eql(pm.iterationData.get(\"name\")); });\n",
+                  "}\n",
+                  "pm.test(\"Password is not returned\", function () { pm.expect(response).to.not.have.property(\"password\"); });\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Profile",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const data = pm.iterationData.toObject();\n",
+                  "Object.keys(data).forEach((key) => {\n",
+                  "  pm.variables.set(key, data[key]);\n",
+                  "});\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Status code matches expected result\", function () {\n",
+                  "  pm.response.to.have.status(Number(pm.iterationData.get(\"status\") || 200));\n",
+                  "});\n",
+                  "pm.test(\"Response time is acceptable\", function () { pm.expect(pm.response.responseTime).to.be.below(2000); });\n"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Security - Protected Endpoints",
+      "item": [
+        {
+          "name": "Get Profile - No Token",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Protected endpoint rejects missing or invalid token\", function () {\n",
+                  "  pm.expect([401, 403]).to.include(pm.response.code);\n",
+                  "});\n",
+                  "pm.test(\"Response does not expose stack trace\", function () {\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Update Profile - No Token",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"NoToken\",\n  \"lastName\": \"User\",\n  \"email\": \"no.token@example.com\",\n  \"shippingAddress\": \"Test\",\n  \"dateOfBirth\": \"2000-01-01\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Protected endpoint rejects missing or invalid token\", function () {\n",
+                  "  pm.expect([401, 403]).to.include(pm.response.code);\n",
+                  "});\n",
+                  "pm.test(\"Response does not expose stack trace\", function () {\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Delete Profile - No Token",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test(\"Protected endpoint rejects missing or invalid token\", function () {\n",
+                  "  pm.expect([401, 403]).to.include(pm.response.code);\n",
+                  "});\n",
+                  "pm.test(\"Response does not expose stack trace\", function () {\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"StackTrace\");\n",
+                  "  pm.expect(pm.response.text()).to.not.include(\"java.lang\");\n",
+                  "});\n"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Happy Flow - Register Login Profile",
+      "item": [
+        {
+          "name": "01 Register Dynamic User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/register",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{dynamic_email}}\",\n  \"password\": \"{{password}}\",\n  \"name\": \"Lili\",\n  \"lastName\": \"Quintana\",\n  \"shippingAddress\": \"Test Address 123\",\n  \"dateOfBirth\": \"2001-10-03\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const uniqueEmail = `portfolio.qa.${Date.now()}@example.com`;\n",
+                  "pm.environment.set(\"dynamic_email\", uniqueEmail);\n",
+                  "pm.environment.set(\"password\", \"QaTest123!\");\n"
+                ]
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();\n",
+                  "pm.test(\"Dynamic user registered successfully\", function () { pm.response.to.have.status(201); });\n",
+                  "pm.test(\"Registered email matches generated email\", function () { pm.expect(response.email).to.eql(pm.environment.get(\"dynamic_email\")); });\n",
+                  "pm.test(\"Password is not returned\", function () { pm.expect(response).to.not.have.property(\"password\"); });\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "02 Login Dynamic User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/auth/login",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{dynamic_email}}\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const response = pm.response.json();\n",
+                  "pm.test(\"Dynamic user login succeeds\", function () { pm.response.to.have.status(200); });\n",
+                  "pm.test(\"Access token is returned\", function () { pm.expect(response.accessToken).to.be.a(\"string\").and.not.empty; });\n",
+                  "pm.environment.set(\"access_token\", response.accessToken);\n"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "03 Get Dynamic User Profile",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/api/users/me",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{access_token}}",
+                  "type": "string"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "let response = {};\n",
+                  "if (pm.response.text()) {\n",
+                  "  response = pm.response.json();\n",
+                  "}\n",
+                  "pm.test(\"Profile is retrieved successfully\", function () { pm.response.to.have.status(200); });\n",
+                  "pm.test(\"Profile contains required fields\", function () {\n",
+                  "  pm.expect(response).to.have.property(\"email\");\n",
+                  "  pm.expect(response).to.have.property(\"name\");\n",
+                  "  pm.expect(response).to.have.property(\"lastName\");\n",
+                  "  pm.expect(response).to.have.property(\"shippingAddress\");\n",
+                  "  pm.expect(response).to.have.property(\"dateOfBirth\");\n",
+                  "});\n",
+                  "if (pm.environment.get(\"dynamic_email\")) {\n",
+                  "  pm.test(\"Profile email matches registered user\", function () {\n",
+                  "    pm.expect(response.email).to.eql(pm.environment.get(\"dynamic_email\"));\n",
+                  "  });\n",
+                  "}\n",
+                  "pm.test(\"Password is not returned\", function () { pm.expect(response).to.not.have.property(\"password\"); });\n"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

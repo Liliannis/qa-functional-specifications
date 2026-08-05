@@ -1,0 +1,7 @@
+[
+  {
+    "testCase": "Delete authenticated user",
+    "status": 200,
+    "message": ""
+  }
+]

@@ -1,0 +1,90 @@
+[
+  {
+    "testCase": "Register successful",
+    "email": "portfolio.register.ok@example.com",
+    "password": "QaTest123!",
+    "name": "Lili",
+    "lastName": "Quintana",
+    "shippingAddress": "Test Address 123",
+    "dateOfBirth": "2001-10-03",
+    "status": 201,
+    "message": ""
+  },
+  {
+    "testCase": "Duplicate email",
+    "email": "portfolio.register.ok@example.com",
+    "password": "QaTest123!",
+    "name": "Lili",
+    "lastName": "Quintana",
+    "shippingAddress": "Test Address 123",
+    "dateOfBirth": "2001-10-03",
+    "status": 400,
+    "message": "Email already exists"
+  },
+  {
+    "testCase": "Invalid email format",
+    "email": "invalid-email",
+    "password": "QaTest123!",
+    "name": "Lili",
+    "lastName": "Quintana",
+    "shippingAddress": "Test Address 123",
+    "dateOfBirth": "2001-10-03",
+    "status": 400,
+    "message": "Invalid email"
+  },
+  {
+    "testCase": "Empty required fields",
+    "email": "",
+    "password": "",
+    "name": "",
+    "lastName": "",
+    "shippingAddress": "",
+    "dateOfBirth": "",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Underage user",
+    "email": "portfolio.underage@example.com",
+    "password": "QaTest123!",
+    "name": "Minor",
+    "lastName": "User",
+    "shippingAddress": "Test Address 123",
+    "dateOfBirth": "2015-01-01",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Future birth date",
+    "email": "portfolio.future@example.com",
+    "password": "QaTest123!",
+    "name": "Future",
+    "lastName": "User",
+    "shippingAddress": "Test Address 123",
+    "dateOfBirth": "2099-01-01",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Blank spaces in name",
+    "email": "portfolio.blank@example.com",
+    "password": "QaTest123!",
+    "name": "   ",
+    "lastName": "   ",
+    "shippingAddress": "Test Address 123",
+    "dateOfBirth": "2001-10-03",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Short password",
+    "email": "portfolio.shortpass@example.com",
+    "password": "123",
+    "name": "Short",
+    "lastName": "Password",
+    "shippingAddress": "Test Address 123",
+    "dateOfBirth": "2001-10-03",
+    "status": 400,
+    "message": ""
+  }
+]

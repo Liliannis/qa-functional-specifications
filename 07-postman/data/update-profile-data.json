@@ -1,0 +1,42 @@
+[
+  {
+    "testCase": "Update profile successful",
+    "name": "Liliannis",
+    "lastName": "Quintana",
+    "email": "portfolio.updated@example.com",
+    "shippingAddress": "Updated Address 456",
+    "dateOfBirth": "2001-10-03",
+    "status": 200,
+    "message": ""
+  },
+  {
+    "testCase": "Invalid email on update",
+    "name": "Liliannis",
+    "lastName": "Quintana",
+    "email": "invalid-email",
+    "shippingAddress": "Updated Address 456",
+    "dateOfBirth": "2001-10-03",
+    "status": 400,
+    "message": "Invalid email"
+  },
+  {
+    "testCase": "Empty name on update",
+    "name": "",
+    "lastName": "Quintana",
+    "email": "portfolio.emptyname@example.com",
+    "shippingAddress": "Updated Address 456",
+    "dateOfBirth": "2001-10-03",
+    "status": 400,
+    "message": ""
+  },
+  {
+    "testCase": "Future birth date on update",
+    "name": "Liliannis",
+    "lastName": "Quintana",
+    "email": "portfolio.futureupdate@example.com",
+    "shippingAddress": "Updated Address 456",
+    "dateOfBirth": "2099-01-01",
+    "status": 400,
+    "message": ""
+  }
+]
