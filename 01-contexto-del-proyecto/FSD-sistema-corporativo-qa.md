@@ -1,6 +1,6 @@
-﻿# FSD - Especificación funcional del caso corporativo QA
+﻿# FSD - Especificación funcional del sistema corporativo
 
-Este documento define el alcance funcional usado como base para las historias de usuario, escenarios Gherkin, matriz de trazabilidad, evidencias de ejecución manual y bugs encontrados incluidos en este portfolio QA.
+Este documento describe el propósito, alcance, objetivos funcionales, reglas de negocio, actores, flujos principales, formatos de entrada/salida y manejo de excepciones de un sistema corporativo compuesto por módulos de administración de usuarios, reportes analíticos y validación de identidad.
 
 > Nota de confidencialidad: este es un caso anonimizado y adaptado para portfolio. No contiene nombres de clientes, URLs privadas, credenciales, datos productivos ni reglas confidenciales reales.
 
