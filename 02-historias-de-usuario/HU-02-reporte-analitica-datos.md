@@ -35,7 +35,7 @@ Como Analista de Operaciones y Calidad, quiero generar un reporte comparativo se
 ## Precondiciones
 
 - El usuario está autenticado con permisos de lectura en el módulo BI.
-- El proceso ETL o sincronizacion de API se ejecuto correctamente en las últimas 24 horas.
+- El proceso ETL o sincronización de API se ejecutó correctamente en las últimas 24 horas.
 - Existen datos disponibles para la fecha actual y fecha base.
 - El servicio de reportes y exportación está disponible.
 
@@ -65,5 +65,5 @@ Como Analista de Operaciones y Calidad, quiero generar un reporte comparativo se
 | Contexto del sistema | Módulo BI y analítica para plataforma corporativa de gestión hotelera internacional |
 | Categorias | Hotel Resort, Casa Boutique, Albergue Ejecutivo |
 | Grupos | Cadena propia Grupo A, Grupo B, Grupo C, Competencia Directa |
-| Modalidades | Todo Incluido, Solo Desayuno, Pension Completa |
+| Modalidades | Todo Incluido, Solo Desayuno, Pensión Completa |
 | Riesgo funcional | Métricas incorrectas, filtros inconsistentes, exportaciones no confiables o decisiones basadas en datos erróneos |

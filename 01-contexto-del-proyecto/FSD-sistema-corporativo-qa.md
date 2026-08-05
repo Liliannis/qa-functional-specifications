@@ -1,4 +1,4 @@
-﻿# FSD - Especificacion funcional del caso corporativo QA
+﻿# FSD - Especificación funcional del caso corporativo QA
 
 Este documento define el alcance funcional usado como base para las historias de usuario, escenarios Gherkin, matriz de trazabilidad, evidencias de ejecución manual y bugs encontrados incluidos en este portfolio QA.
 
@@ -6,7 +6,7 @@ Este documento define el alcance funcional usado como base para las historias de
 
 ## 1. Propósito
 
-El sistema representa una plataforma corporativa con tres areas funcionales conectadas:
+El sistema representa una plataforma corporativa con tres áreas funcionales conectadas:
 
 1. administración centralizada de usuarios, roles y permisos;
 2. reportes analíticos y validación de datos para dashboards de negocio;
@@ -32,8 +32,8 @@ El objetivo funcional es definir las reglas, interacciones, datos intercambiados
 - Integraciones reales productivas.
 - Datos reales de clientes.
 - Pruebas de performance.
-- Pentesting o auditoria de seguridad profunda.
-- Implementacion completa de automatización.
+- Pentesting o auditoría de seguridad profunda.
+- Implementación completa de automatización.
 - Credenciales reales, tokens, ambientes privados o endpoints productivos.
 
 ## 3. Actores y roles
@@ -68,7 +68,7 @@ Permite a usuarios de negocio revisar información analítica mediante dashboard
 Capacidades principales:
 
 - calcular indicadores de negocio;
-- filtrar reportes por multiples variables;
+- filtrar reportes por múltiples variables;
 - ordenar tablas analíticas;
 - exportar datos filtrados;
 - mostrar estados vacíos controlados.
@@ -105,7 +105,7 @@ Capacidades principales:
 - Los mensajes de error deben ser claros y accionables.
 - Las restricciones de acceso deben validarse en UI y backend.
 - Los datos en pantalla y exportados deben mantenerse consistentes.
-- Las validaciones largas deben mostrar retroalimentacion visual.
+- Las validaciones largas deben mostrar retroalimentación visual.
 - Cada requisito debe mapearse al menos a un caso de prueba.
 
 ## 7. Formatos de entrada y salida
@@ -120,9 +120,9 @@ Las salidas deben conservar los datos y formatos definidos por cada módulo. En 
 
 ## 8. Manejo de errores y excepciones
 
-| Situacion | Comportamiento esperado | Resultado para el usuario |
+| Situación | Comportamiento esperado | Resultado para el usuario |
 |---|---|---|
-| Acceso sin rol administrativo | Denegar el acceso o redirigir a una vista autorizada | Mensaje o redireccion que informe la falta de permisos |
+| Acceso sin rol administrativo | Denegar el acceso o redirigir a una vista autorizada | Mensaje o redirección que informe la falta de permisos |
 | Cambios críticos sin confirmación | No persistir la operación | Solicitud de confirmación antes de continuar |
 | Navegación con cambios sin guardar | Mantener los cambios en espera | Advertencia para confirmar la salida o permanecer en el módulo |
 | Consulta analítica sin resultados | Responder éxitosamente con colección vacía | Estado vacío controlado, sin tabla de resultados |
@@ -137,12 +137,12 @@ Las salidas deben conservar los datos y formatos definidos por cada módulo. En 
 2. El sistema valida el rol `ADMIN_IT`.
 3. El administrador consulta usuarios o modifica permisos.
 4. Ante una acción crítica, el sistema solicita confirmación antes de guardar.
-5. El sistema actualiza la información o informa la restriccion aplicable.
+5. El sistema actualiza la información o informa la restricción aplicable.
 
 ### 9.2 Consulta y exportación de reporte analítico
 
 1. El usuario selecciona fechas y filtros.
-2. El sistema calcula y presenta los indicadores para la seleccion vigente.
+2. El sistema calcula y presenta los indicadores para la selección vigente.
 3. El usuario puede ordenar la tabla sin perder los filtros aplicados.
 4. Si existen datos, puede exportarlos en `.xlsx`; si no existen, se muestra un estado vacío controlado.
 

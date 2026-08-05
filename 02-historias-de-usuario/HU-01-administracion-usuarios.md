@@ -10,7 +10,7 @@
 | Prioridad | Alta |
 | Riesgo en desarrollo | Alto |
 | Puntos estimados | 8 |
-| Iteracion | Sprint 1 |
+| Iteración | Sprint 1 |
 | Programador responsable | Por asignar |
 
 ## Descripción
@@ -22,7 +22,7 @@ Como usuario Administrador del sistema con rol `ADMIN_IT`, quiero acceder a un m
 | ID | Regla |
 |---|---|
 | RN-01 | La sección administrativa es exclusiva para usuarios con rol `ADMIN_IT`. |
-| RN-02 | La asignacion de permisos se realiza mediante una matriz de checkboxes por funcionalidad y rol. |
+| RN-02 | La asignación de permisos se realiza mediante una matriz de checkboxes por funcionalidad y rol. |
 | RN-03 | Los cambios críticos de permisos, ediciones o eliminaciones requieren confirmación explícita. |
 | RN-04 | Si existen cambios pendientes, el sistema debe advertir antes de abandonar el módulo. |
 | RN-05 | El usuario administrador raíz no puede ser eliminado ni editado. |
@@ -66,4 +66,4 @@ Como usuario Administrador del sistema con rol `ADMIN_IT`, quiero acceder a un m
 | Tipo | Historia de Usuario - escenario anonimizado para portfolio |
 | Perfil documentador | Analista Funcional / QA Analyst |
 | Contexto del sistema | Módulo de Administración Centralizada para un ERP de operaciones y analítica corporativa |
-| Riesgo funcional | Acceso indebido, perdida de control administrativo, permisos incorrectos o bloqueo operativo de usuarios |
+| Riesgo funcional | Acceso indebido, pérdida de control administrativo, permisos incorrectos o bloqueo operativo de usuarios |

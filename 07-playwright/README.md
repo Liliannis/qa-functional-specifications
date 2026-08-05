@@ -1,4 +1,4 @@
-﻿# Playwright - Automatización en preparacion
+﻿# Playwright - Automatización en preparación
 
 Esta carpeta está reservada para futuras pruebas automatizadas con Playwright y TypeScript.
 

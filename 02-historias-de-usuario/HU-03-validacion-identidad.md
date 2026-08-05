@@ -61,8 +61,8 @@ Como Operador del Sistema, quiero que el sistema valide el documento de identida
 | Tipo | Historia de Usuario - escenario anonimizado para portfolio |
 | Perfil documentador | Analista Funcional / QA Analyst |
 | Contexto del sistema | Módulo de Alta de Clientes dentro de una plataforma corporativa de gestión |
-| Tipos de documento | Cedula, Pasaporte |
-| Trigger | Botón explicito `Validar Documento` |
+| Tipos de documento | Cédula, Pasaporte |
+| Trigger | Botón explícito `Validar Documento` |
 | Estados internos | `Pendiente`, `Verificado`, `Revisión Manual` |
 | Timeout | 5 segundos sin respuesta del proveedor externo |
 | Riesgo funcional | Fraude, datos inválidos, bloqueo operativo, errores de carga o dependencia excesiva del proveedor externo |
