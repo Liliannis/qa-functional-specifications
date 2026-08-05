@@ -1,7 +1,5 @@
 ﻿# Portfolio QA - Especificaciones funcionales y trazabilidad
 
-# Portfolio QA - Especificaciones funcionales y trazabilidad
-
 Este repositorio presenta un caso práctico de QA funcional y análisis de requerimientos basado en escenarios profesionales anonimizados, generalizados y adaptados para portfolio.
 
 > Nota de confidencialidad: este material no contiene información real ni confidencial de clientes. Los escenarios fueron modificados para proteger acuerdos de confidencialidad y se usan exclusivamente para demostrar metodología de trabajo QA.
